@@ -1,20 +1,11 @@
 import cti.SystemStatsReader;
 import cti.Attacker;
 import cti.SimulatorSwing;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/**
- * Improved MainApp for CTI demos.
- * - Cleaner menu loop
- * - Robust parsing and bounds checking for node count
- * - Launches Swing UI correctly on EDT (SimulatorSwing.showUI uses SwingUtilities)
- * - Single shared default node count configurable at runtime
- */
 public class MainApp {
 
-    // sensible default and limits for simulator nodes
     private static final int DEFAULT_NODE_COUNT = 6;
     private static final int MIN_NODES = 1;
     private static final int MAX_NODES = 64;
@@ -22,7 +13,6 @@ public class MainApp {
     public static void main(String[] args) {
         int defaultNodes = DEFAULT_NODE_COUNT;
 
-        // allow overriding default node count via first CLI arg (optional)
         if (args != null && args.length > 0) {
             try {
                 int argNodes = Integer.parseInt(args[0]);
@@ -53,7 +43,6 @@ public class MainApp {
                         break;
 
                     case "1":
-                        // System stats: delegate to your utility
                         try {
                             SystemStatsReader.printStats();
                         } catch (Throwable t) {
@@ -63,7 +52,6 @@ public class MainApp {
                         break;
 
                     case "2":
-                        // Attacker console demo
                         int n = promptInt(sc, "How many attackers to generate? (default 5): ", 1, 1000, 5);
                         System.out.println("Generating " + n + " attackers:");
                         for (int i = 0; i < n; i++) {
@@ -72,7 +60,6 @@ public class MainApp {
                         break;
 
                     case "3":
-                        // Launch Swing simulator with chosen node count
                         int nodes = promptInt(sc,
                                 String.format("Node count for simulator (min %d, max %d) [default %d]: ",
                                         MIN_NODES, MAX_NODES, defaultNodes),
@@ -82,7 +69,6 @@ public class MainApp {
                         break;
 
                     case "4":
-                        // change default node count used by option 3
                         defaultNodes = promptInt(sc,
                                 String.format("Set default node count (%d..%d) [current %d]: ", MIN_NODES, MAX_NODES, defaultNodes),
                                 MIN_NODES, MAX_NODES, defaultNodes);
@@ -126,10 +112,6 @@ public class MainApp {
         System.out.println(" - You can also pass an initial node count as the first CLI argument when starting the app.");
     }
 
-    /**
-     * Prompt user for an integer and apply bounds with a default.
-     * If user enters an empty line, the default is returned.
-     */
     private static int promptInt(Scanner sc, String prompt, int min, int max, int defaultVal) {
         while (true) {
             System.out.print(prompt);
@@ -148,10 +130,6 @@ public class MainApp {
         }
     }
 
-    /**
-     * Launch the simulator UI safely. SimulatorSwing.showUI() schedules visibility on EDT,
-     * but keep the call here to make intent clear.
-     */
     private static void launchSimulator(int nodes) {
         try {
             SimulatorSwing sim = new SimulatorSwing(nodes);

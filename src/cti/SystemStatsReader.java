@@ -1,5 +1,4 @@
 package cti;
-
 import com.sun.management.OperatingSystemMXBean;
 import java.lang.management.ManagementFactory;
 
@@ -17,7 +16,7 @@ public class SystemStatsReader {
 
     public static double getCpuPercent() {
         if (osBean == null) return -1;
-        double v = osBean.getSystemCpuLoad(); 
+        double v = osBean.getCpuLoad(); 
         return v < 0 ? -1 : v * 100.0;
     }
 
@@ -32,7 +31,7 @@ public class SystemStatsReader {
     public static void printStats() {
         System.out.println("=== SYSTEM STATS ===");
         double cpu = getCpuPercent();
-        if (cpu < 0) System.out.println("CPU: unavailable on this JVM/platform");
+        if (cpu < 0) System.out.println("CPU: unavailable on this device");
         else System.out.printf("CPU Usage: %.2f%%%n", cpu);
 
         double mem = getMemoryPercent();

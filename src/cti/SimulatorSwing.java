@@ -5,16 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import java.util.List;
-
-/**
- * Swing-based simulator UI with node panels.
- * - Choose a node and an attack type & intensity, then start attack.
- * - Auto toggle will spawn random attacks.
- * - Each node displays CPU% and MEM% as progress bars and a small log.
- */
 public class SimulatorSwing {
-
-    // small inner class representing a node UI + state
     private static class NodePanel {
         final String nodeId;
         final JPanel panel;
@@ -22,10 +13,9 @@ public class SimulatorSwing {
         final JProgressBar memBar;
         final JTextArea miniLog;
 
-        // internal simulated state
-        volatile int cpu = 10; // %
-        volatile int mem = 20; // %
-        Timer decayTimer; // to decay after attack
+        volatile int cpu = 10; 
+        volatile int mem = 20; 
+        Timer decayTimer; 
 
         NodePanel(String nodeId) {
             this.nodeId = nodeId;
@@ -62,16 +52,13 @@ public class SimulatorSwing {
         void appendLog(String line) {
             SwingUtilities.invokeLater(() -> {
                 miniLog.append(line + "\n");
-                // keep last few lines visible
                 miniLog.setCaretPosition(miniLog.getDocument().getLength());
             });
         }
 
         void applyAttack(Attacker.AttackType type, int intensity) {
-            // intensity 1..10 maps to impact multiplier
-            double impact = intensity / 10.0; // 0.1 .. 1.0
+            double impact = intensity / 10.0;
 
-            // stop previous decay timer if any
             if (decayTimer != null) decayTimer.stop();
 
             switch (type) {
@@ -92,7 +79,6 @@ public class SimulatorSwing {
 
         private void simulateIncrease(String label, int peakIncrease, int durationMs) {
             appendLog("[attack] " + label + " -> peak+" + peakIncrease + "% for " + durationMs + "ms");
-            // linear ramp up in small steps, then decay
             int stepsUp = 8;
             int stepMs = Math.max(50, durationMs / (stepsUp + 4));
             int initialCpu = cpu;
@@ -100,7 +86,6 @@ public class SimulatorSwing {
             int targetCpu = Math.min(100, initialCpu + peakIncrease);
             int targetMem = Math.min(100, initialMem + peakIncrease/2);
 
-            // ramp up
             Timer upTimer = new Timer(stepMs, null);
             final int[] step = {0};
             upTimer.addActionListener(e -> {
@@ -114,7 +99,6 @@ public class SimulatorSwing {
                 memBar.setString(mem + "%");
                 if (step[0] >= stepsUp) {
                     ((Timer)e.getSource()).stop();
-                    // schedule decay after short hold
                     scheduleDecay(durationMs, initialCpu, initialMem);
                 }
             });
@@ -123,12 +107,10 @@ public class SimulatorSwing {
         }
 
         private void scheduleDecay(int holdMs, int initialCpu, int initialMem) {
-            // hold then decay back toward initial values slowly
             int hold = Math.max(200, holdMs / 6);
             try {
-                Thread.sleep(hold); // short hold (on background thread? it's on EDT - use timer instead)
+                Thread.sleep(hold); 
             } catch (InterruptedException ignored) {}
-            // use a timer for decay to avoid blocking EDT: start after small delay via SwingUtilities
             SwingUtilities.invokeLater(() -> {
                 int decaySteps = 12;
                 int decayStepMs = Math.max(50, (holdMs + 600) / decaySteps);
@@ -154,7 +136,6 @@ public class SimulatorSwing {
         }
     }
 
-    // --- SimulatorSwing fields ---
     private final JFrame frame;
     private final JPanel nodesGrid;
     private final JComboBox<String> nodeSelect;
@@ -178,7 +159,6 @@ public class SimulatorSwing {
         mainLog.setEditable(false);
         mainLog.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 
-        // create nodes
         for (int i = 1; i <= nodeCount; i++) {
             String id = "node-" + i;
             NodePanel np = new NodePanel(id);
@@ -187,7 +167,6 @@ public class SimulatorSwing {
             nodeSelect.addItem(id);
         }
 
-        // left controls
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
         controls.add(new JLabel("Target Node:"));
         controls.add(nodeSelect);
@@ -211,11 +190,9 @@ public class SimulatorSwing {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // handlers
         startBtn.addActionListener(this::onStartAttack);
         autoToggle.addActionListener(this::onAutoToggle);
 
-        // ensure timer stops on close
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override public void windowClosing(java.awt.event.WindowEvent e) {
                 stopAuto();
@@ -235,7 +212,6 @@ public class SimulatorSwing {
         np.appendLog("Received attack: " + attacker);
         np.applyAttack(type, intensity);
 
-        // visual main log highlight for critical
         if (intensity >= 9) {
             log("*** CRITICAL ATTACK ON " + nodeId + " ***");
         }
@@ -267,7 +243,6 @@ public class SimulatorSwing {
         if (autoTimer != null && autoTimer.isRunning()) return;
         Random r = new Random();
         autoTimer = new Timer(900, ev -> {
-            // random node, random type, random intensity
             NodePanel np = nodes.get(r.nextInt(nodes.size()));
             Attacker.AttackType t = Attacker.AttackType.values()[r.nextInt(Attacker.AttackType.values().length)];
             int intensity = 2 + r.nextInt(9);

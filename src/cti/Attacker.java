@@ -3,10 +3,6 @@ package cti;
 import java.time.Instant;
 import java.util.Random;
 
-/**
- * Attacker object with predefined attack types and intensity.
- * Intensity: 1..10 (1 = slight, 10 = extreme)
- */
 public class Attacker {
     public enum AttackType {
         CPU_OVERLOAD,
@@ -19,7 +15,7 @@ public class Attacker {
     private final String ip;
     private final Instant timestamp;
     private final AttackType type;
-    private final int intensity; // 1..10
+    private final int intensity; 
 
     public Attacker(String id, String ip, AttackType type, int intensity) {
         this.id = id;
@@ -35,9 +31,6 @@ public class Attacker {
     public AttackType getType() { return type; }
     public int getIntensity() { return intensity; }
 
-    /**
-     * Random attacker for demos. Random attack type + intensity.
-     */
     public static Attacker random() {
         Random r = new Random();
         String ip = (r.nextInt(200) + 10) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
