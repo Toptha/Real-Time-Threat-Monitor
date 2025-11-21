@@ -1,7 +1,19 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\jdk.jsobject.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.graphics.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.controls.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.media.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx-swt.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.base.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.swing.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.web.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\jfx.incubator.richtext.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\jfx.incubator.input.jar",
+        "d:\\2nd-year\\4th-sem\\Advanced java\\Domain\\lib\\javafx.fxml.jar"
     ]
 }

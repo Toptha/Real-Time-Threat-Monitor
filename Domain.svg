@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000">
+  <style>
+    .entity { fill:#f7fbff; stroke:#1f6feb; stroke-width:3; rx:8; ry:8; }
+    .entity-text { font: 18px "Helvetica Neue", Arial, sans-serif; font-weight:700; fill:#083159; }
+    .attr { fill:#fff; stroke:#666; stroke-width:1.6; }
+    .attr-text { font: 13px "Helvetica Neue", Arial, sans-serif; fill:#111; }
+    .derived { fill:#fff; stroke:#666; stroke-width:1.6; stroke-dasharray:6 4; }
+    .rel { fill:#fff7ef; stroke:#d97706; stroke-width:2.2; }
+    .rel-text { font: 13px "Helvetica Neue", Arial, sans-serif; fill:#8a4100; font-weight:600; }
+    .line { stroke:#2b2b2b; stroke-width:1.8; fill:none; }
+    .card { font: 12px "Helvetica Neue", Arial, sans-serif; fill:#222; }
+    .legend { font:12px "Helvetica Neue", Arial, sans-serif; fill:#222; }
+  </style>
+
+  <!-- Title -->
+  <text x="24" y="34" font-size="20" font-family="Helvetica Neue, Arial" font-weight="700">Clean & Aligned Chen EER — HR Applicant System</text>
+
+  <!-- Left column entities -->
+  <rect class="entity" x="40" y="80" width="230" height="70" />
+  <text class="entity-text" x="120" y="125">Applicant</text>
+
+  <rect class="entity" x="40" y="180" width="230" height="70" />
+  <text class="entity-text" x="115" y="225">Resume</text>
+
+  <rect class="entity" x="40" y="280" width="230" height="70" />
+  <text class="entity-text" x="125" y="325">Skill</text>
+
+  <!-- Center entities -->
+  <rect class="entity" x="360" y="160" width="300" height="90" />
+  <text class="entity-text" x="445" y="215">Application</text>
+
+  <rect class="entity" x="720" y="60" width="260" height="70" />
+  <text class="entity-text" x="805" y="105">JobPosting</text>
+
+  <rect class="entity" x="720" y="160" width="260" height="70" />
+  <text class="entity-text" x="770" y="205">ApplicationStatus</text>
+
+  <!-- Right column entities -->
+  <rect class="entity" x="1120" y="80" width="220" height="70" />
+  <text class="entity-text" x="1180" y="125">User</text>
+
+  <rect class="entity" x="1120" y="180" width="220" height="70" />
+  <text class="entity-text" x="1165" y="225">Interview</text>
+
+  <rect class="entity" x="1120" y="280" width="220" height="70" />
+  <text class="entity-text" x="1175" y="325">Offer</text>
+
+  <!-- Attribute ovals (neatly placed) -->
+  <!-- Applicant attributes -->
+  <ellipse class="attr" cx="320" cy="100" rx="92" ry="20" />
+  <text class="attr-text" x="280" y="104">Name</text>
+  <ellipse class="attr" cx="320" cy="130" rx="92" ry="18" />
+  <text class="attr-text" x="295" y="134">Email</text>
+
+  <!-- Resume attributes -->
+  <ellipse class="attr" cx="320" cy="210" rx="100" ry="18" />
+  <text class="attr-text" x="285" y="214">FileName</text>
+  <ellipse class="attr" cx="320" cy="237" rx="100" ry="18" />
+  <text class="attr-text" x="290" y="241">UploadedAt</text>
+
+  <!-- Skill attribute -->
+  <ellipse class="attr" cx="320" cy="310" rx="90" ry="18" />
+  <text class="attr-text" x="295" y="314">SkillName</text>
+
+  <!-- Application attributes -->
+  <ellipse class="attr" cx="540" cy="120" rx="100" ry="18" />
+  <text class="attr-text" x="500" y="124">AppliedAt</text>
+  <ellipse class="attr" cx="540" cy="145" rx="100" ry="18" />
+  <text class="attr-text" x="515" y="149">Source</text>
+
+  <!-- JobPosting attributes -->
+  <ellipse class="attr" cx="950" cy="80" rx="110" ry="18" />
+  <text class="attr-text" x="915" y="84">Title</text>
+  <ellipse class="attr" cx="950" cy="105" rx="110" ry="18" />
+  <text class="attr-text" x="915" y="109">Department</text>
+
+  <!-- ApplicationStatus attribute -->
+  <ellipse class="attr" cx="950" cy="190" rx="110" ry="18" />
+  <text class="attr-text" x="915" y="194">StatusName</text>
+
+  <!-- User attribute -->
+  <ellipse class="attr" cx="1340" cy="100" rx="95" ry="18" />
+  <text class="attr-text" x="1305" y="104">UserName</text>
+
+  <!-- Interview attribute -->
+  <ellipse class="attr" cx="1340" cy="200" rx="95" ry="18" />
+  <text class="attr-text" x="1305" y="204">ScheduledAt</text>
+
+  <!-- Offer attribute -->
+  <ellipse class="attr" cx="1340" cy="300" rx="95" ry="18" />
+  <text class="attr-text" x="1305" y="304">OfferedSalary</text>
+
+  <!-- Relationships (diamonds) positioned between connected entities -->
+  <!-- Applicant SUBMITS Resume (left column) -->
+  <polygon class="rel" points="190,160 220,140 250,160 220,180" />
+  <text class="rel-text" x="260" y="168">submits</text>
+  <line class="line" x1="155" y1="115" x2="190" y2="160" />
+  <line class="line" x1="190" y1="160" x2="190" y2="205" />
+  <text class="card" x="120" y="115">1</text>
+  <text class="card" x="190" y="215">0..*</text>
+
+  <!-- Applicant APPLIES_FOR Application (left->center) -->
+  <polygon class="rel" points="310,140 350,120 390,140 350,160" />
+  <text class="rel-text" x="400" y="146">applies_for</text>
+  <line class="line" x1="145" y1="120" x2="310" y2="140" />
+  <line class="line" x1="420" y1="200" x2="510" y2="200" />
+  <text class="card" x="115" y="108">1</text>
+  <text class="card" x="520" y="190">0..*</text>
+
+  <!-- Resume USED_BY Application (center-left) -->
+  <polygon class="rel" points="360,220 395,200 430,220 395,240" />
+  <text class="rel-text" x="440" y="226">used_by</text>
+  <line class="line" x1="220" y1="230" x2="360" y2="220" />
+  <line class="line" x1="430" y1="220" x2="510" y2="220" />
+  <text class="card" x="250" y="205">0..*</text>
+  <text class="card" x="520" y="205">1</text>
+
+  <!-- JobPosting RECEIVES Application (center-top) -->
+  <polygon class="rel" points="650,120 690,100 730,120 690,140" />
+  <text class="rel-text" x="740" y="128">receives</text>
+  <line class="line" x1="820" y1="95" x2="730" y2="120" />
+  <line class="line" x1="660" y1="250" x2="540" y2="200" />
+  <text class="card" x="830" y="80">1</text>
+  <text class="card" x="620" y="240">0..*</text>
+
+  <!-- Application HAS_STATUS ApplicationStatus (center to right) -->
+  <polygon class="rel" points="860,180 900,160 940,180 900,200" />
+  <text class="rel-text" x="950" y="188">has_status</text>
+  <line class="line" x1="660" y1="200" x2="860" y2="180" />
+  <line class="line" x1="940" y1="180" x2="960" y2="180" />
+  <text class="card" x="700" y="185">1</text>
+  <text class="card" x="920" y="170">1</text>
+
+  <!-- Applicant HAS Skill (M:N) -->
+  <polygon class="rel" points="210,300 245,280 280,300 245,320" />
+  <text class="rel-text" x="295" y="300">has_skill</text>
+  <line class="line" x1="155" y1="340" x2="210" y2="300" />
+  <line class="line" x1="300" y1="300" x2="360" y2="300" />
+  <text class="card" x="120" y="320">1</text>
+  <text class="card" x="340" y="320">0..*</text>
+
+  <!-- Application HAS_INTERVIEW Interview (center->right) -->
+  <polygon class="rel" points="920,260 960,240 1000,260 960,280" />
+  <text class="rel-text" x="1010" y="268">has_interview</text>
+  <line class="line" x1="660" y1="220" x2="920" y2="260" />
+  <line class="line" x1="1120" y1="215" x2="1000" y2="260" />
+  <text class="card" x="700" y="240">1</text>
+  <text class="card" x="1080" y="240">0..*</text>
+
+  <!-- Interview CONDUCTED_BY User -->
+  <polygon class="rel" points="1080,150 1120,130 1160,150 1120,170" />
+  <text class="rel-text" x="1180" y="158">conducted_by</text>
+  <line class="line" x1="1160" y1="150" x2="1160" y2="110" />
+  <line class="line" x1="1000" y1="260" x2="1130" y2="170" />
+  <text class="card" x="1120" y="120">1</text>
+  <text class="card" x="1040" y="220">0..*</text>
+
+  <!-- Application RESULTS_IN Offer -->
+  <polygon class="rel" points="980,320 1020,300 1060,320 1020,340" />
+  <text class="rel-text" x="1080" y="328">results_in</text>
+  <line class="line" x1="660" y1="240" x2="980" y2="320" />
+  <line class="line" x1="1120" y1="320" x2="1060" y2="320" />
+  <text class="card" x="700" y="260">1</text>
+  <text class="card" x="1100" y="320">0..1</text>
+
+  <!-- User CREATES JobPosting -->
+  <polygon class="rel" points="980,100 1020,80 1060,100 1020,120" />
+  <text class="rel-text" x="1080" y="108">creates</text>
+  <line class="line" x1="1160" y1="120" x2="1060" y2="100" />
+  <line class="line" x1="960" y1="120" x2="1050" y2="120" />
+  <text class="card" x="1180" y="100">1</text>
+  <text class="card" x="920" y="130">0..*</text>
+
+  <!-- Legend -->
+  <rect x="1260" y="40" width="470" height="140" fill="#fff" stroke="#e6e6e6" rx="6" />
+  <text class="legend" x="1280" y="70" font-weight="700">Legend (Chen notation)</text>
+  <text class="legend" x="1280" y="92">Rectangle = Entity</text>
+  <text class="legend" x="1280" y="112">Oval = Attribute</text>
+  <text class="legend" x="1280" y="132">Diamond = Relationship</text>
+
+  <!-- Footer -->
+  <text x="24" y="980" font-size="12" fill="#666">File: EER_clean_aligned_hr.svg — import into Lucidchart (File → Import Diagram) or open in browser. Tell me if you want tiny label or layout tweaks and I will update.</text>
+</svg>
