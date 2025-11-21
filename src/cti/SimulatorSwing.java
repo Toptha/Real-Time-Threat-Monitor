@@ -1,10 +1,12 @@
 package cti;
+
 import javax.swing.Timer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import java.util.List;
+
 public class SimulatorSwing {
     private static class NodePanel {
         final String nodeId;
@@ -13,9 +15,9 @@ public class SimulatorSwing {
         final JProgressBar memBar;
         final JTextArea miniLog;
 
-        volatile int cpu = 10; 
-        volatile int mem = 20; 
-        Timer decayTimer; 
+        volatile int cpu = 10;
+        volatile int mem = 20;
+        Timer decayTimer;
 
         NodePanel(String nodeId) {
             this.nodeId = nodeId;
@@ -108,31 +110,35 @@ public class SimulatorSwing {
 
         private void scheduleDecay(int holdMs, int initialCpu, int initialMem) {
             int hold = Math.max(200, holdMs / 6);
-            try {
-                Thread.sleep(hold); 
-            } catch (InterruptedException ignored) {}
-            SwingUtilities.invokeLater(() -> {
-                int decaySteps = 12;
-                int decayStepMs = Math.max(50, (holdMs + 600) / decaySteps);
-                final int startCpu = cpu;
-                final int startMem = mem;
-                decayTimer = new Timer(decayStepMs, null);
-                final int[] s = {0};
-                decayTimer.addActionListener(e -> {
-                    s[0]++;
-                    double frac = Math.min(1.0, (double) s[0] / decaySteps);
-                    cpu = startCpu - (int) Math.round((startCpu - initialCpu) * frac);
-                    mem = startMem - (int) Math.round((startMem - initialMem) * frac);
-                    cpuBar.setValue(cpu); cpuBar.setString(cpu + "%");
-                    memBar.setValue(mem); memBar.setString(mem + "%");
-                    if (s[0] >= decaySteps) {
-                        ((Timer)e.getSource()).stop();
-                        appendLog("[recovered] CPU=" + cpu + "% MEM=" + mem + "%");
-                    }
+
+            // Use a single-shot Swing Timer as a non-blocking wait; this avoids sleeping on EDT.
+            Timer holdTimer = new Timer(hold, null);
+            holdTimer.setRepeats(false);
+            holdTimer.addActionListener(ev -> {
+                SwingUtilities.invokeLater(() -> {
+                    int decaySteps = 12;
+                    int decayStepMs = Math.max(50, (holdMs + 600) / decaySteps);
+                    final int startCpu = cpu;
+                    final int startMem = mem;
+                    decayTimer = new Timer(decayStepMs, null);
+                    final int[] s = {0};
+                    decayTimer.addActionListener(e -> {
+                        s[0]++;
+                        double frac = Math.min(1.0, (double) s[0] / decaySteps);
+                        cpu = startCpu - (int) Math.round((startCpu - initialCpu) * frac);
+                        mem = startMem - (int) Math.round((startMem - initialMem) * frac);
+                        cpuBar.setValue(cpu); cpuBar.setString(cpu + "%");
+                        memBar.setValue(mem); memBar.setString(mem + "%");
+                        if (s[0] >= decaySteps) {
+                            ((Timer)e.getSource()).stop();
+                            appendLog("[recovered] CPU=" + cpu + "% MEM=" + mem + "%");
+                        }
+                    });
+                    decayTimer.setRepeats(true);
+                    decayTimer.start();
                 });
-                decayTimer.setRepeats(true);
-                decayTimer.start();
             });
+            holdTimer.start();
         }
     }
 
@@ -207,7 +213,7 @@ public class SimulatorSwing {
         NodePanel np = findNode(nodeId);
         if (np == null) return;
 
-        Attacker attacker = new Attacker("manual-"+System.currentTimeMillis(), "0.0.0.0", type, intensity);
+        Attacker<String> attacker = new Attacker<>("manual-"+System.currentTimeMillis(), "0.0.0.0", type, intensity);
         log("Launching attack " + attacker);
         np.appendLog("Received attack: " + attacker);
         np.applyAttack(type, intensity);
@@ -246,7 +252,7 @@ public class SimulatorSwing {
             NodePanel np = nodes.get(r.nextInt(nodes.size()));
             Attacker.AttackType t = Attacker.AttackType.values()[r.nextInt(Attacker.AttackType.values().length)];
             int intensity = 2 + r.nextInt(9);
-            Attacker autoA = new Attacker("auto-" + Math.abs(r.nextInt() % 10000), "10.0.0." + r.nextInt(255), t, intensity);
+            Attacker<String> autoA = new Attacker<>("auto-" + Math.abs(r.nextInt() % 10000), "10.0.0." + r.nextInt(255), t, intensity);
             log("Auto: " + autoA + " -> target " + np.nodeId);
             np.appendLog("Auto-attack: " + autoA);
             np.applyAttack(t, intensity);

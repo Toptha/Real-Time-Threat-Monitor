@@ -1,7 +1,9 @@
-import cti.SystemStatsReader;
-import cti.Attacker;
+package app;
+
 import cti.SimulatorSwing;
-import java.util.InputMismatchException;
+import cti.Attacker;
+import cti.SystemStatsReader;
+
 import java.util.Scanner;
 
 public class MainApp {
@@ -19,7 +21,7 @@ public class MainApp {
                 if (argNodes >= MIN_NODES && argNodes <= MAX_NODES) {
                     defaultNodes = argNodes;
                 } else {
-                    System.out.printf("CLI node count out of bounds (%d..%d). Using %d.\n",
+                    System.out.printf("CLI node count out of bounds (%d..%d). Using %d.%n",
                             MIN_NODES, MAX_NODES, defaultNodes);
                 }
             } catch (NumberFormatException ignored) {
@@ -120,7 +122,7 @@ public class MainApp {
             try {
                 int v = Integer.parseInt(line);
                 if (v < min || v > max) {
-                    System.out.printf("Value out of range (%d..%d). Try again.\n", min, max);
+                    System.out.printf("Value out of range (%d..%d). Try again.%n", min, max);
                     continue;
                 }
                 return v;

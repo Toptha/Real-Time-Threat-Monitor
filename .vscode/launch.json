@@ -3,10 +3,24 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Run JavaFX",
+      "name": "Run TestF",
       "request": "launch",
       "mainClass": "TestF",
-      "vmArgs": "--module-path \"D:/2nd-year/4th-sem/Advanced_java/Domain/lib\" --add-modules javafx.controls,javafx.fxml -Djava.library.path=D:/2nd-year/4th-sem/Advanced_java/Domain/lib -Dprism.order=d3d -Dprism.verbose=true"
+      "vmArgs": "--module-path \"${workspaceFolder}/lib\" --add-modules javafx.controls,javafx.fxml -Djava.library.path=${workspaceFolder}/lib"
+    },
+    {
+      "type": "java",
+      "name": "Run MainApp",
+      "request": "launch",
+      "mainClass": "app.MainApp",
+      "vmArgs": "--module-path \"${workspaceFolder}/lib\" --add-modules javafx.controls,javafx.fxml -Djava.library.path=${workspaceFolder}/lib"
+    },
+    {
+      "type": "java",
+      "name": "Run Game",
+      "request": "launch",
+      "mainClass": "app.Game",
+      "vmArgs": "--module-path \"${workspaceFolder}/lib\" --add-modules javafx.controls,javafx.fxml -Djava.library.path=${workspaceFolder}/lib"
     }
   ]
 }
