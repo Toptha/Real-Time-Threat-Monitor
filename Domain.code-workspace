@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.referencedLibraries": [
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.media.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\jfx.incubator.richtext.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx-swt.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.swing.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.graphics.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.base.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.controls.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\jdk.jsobject.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.web.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\javafx.fxml.jar",
+			"d:\\2nd-year\\4th-sem\\Advanced_java\\Domain\\lib\\jfx.incubator.input.jar"
+		]
+	}
+}

@@ -1,0 +1,6 @@
+.root { -fx-font-family: \"Segoe UI\", Roboto, sans-serif; -fx-base: #0b0f18; }
+.module-root { -fx-background-color: linear-gradient(#071022, #02040a); }
+.control-column { -fx-background-color: rgba(255,255,255,0.03); -fx-padding:12; -fx-border-radius:8; -fx-background-radius:8; }
+.module-title { -fx-font-size: 18px; -fx-text-fill: #81eeff; -fx-font-weight: bold; }
+.canvas-pane { -fx-padding: 10; -fx-background-color: transparent; }
+.button { -fx-background-radius:6; -fx-border-radius:6; }
